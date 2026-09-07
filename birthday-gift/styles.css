@@ -1,0 +1,331 @@
+:root {
+  --ink: #3e1630;
+  --white: #fffafd;
+  --pink: #f8b6d0;
+  --pink-deep: #ee78a8;
+  --pink-soft: #ffd9e8;
+  --red: #e33444;
+  --shadow: 0 18px 44px rgba(105, 31, 67, 0.19);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--pink);
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--ink);
+  font-family: "Manrope", Arial, sans-serif;
+}
+
+button {
+  font: inherit;
+}
+
+.gift {
+  --page-pink: var(--pink);
+  position: relative;
+  display: grid;
+  min-height: 100svh;
+  place-items: center;
+  overflow: hidden;
+  padding: 28px 18px;
+  background-color: var(--page-pink);
+  isolation: isolate;
+}
+
+.gift::before,
+.gift::after {
+  position: fixed;
+  z-index: -1;
+  content: "";
+  pointer-events: none;
+}
+
+.gift::before {
+  inset: 0;
+  opacity: 0.9;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.98) 0 1.5px, transparent 1.8px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.8) 0 1px, transparent 1.4px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.7) 0 1px, transparent 1.3px);
+  background-position: 0 0, 18px 27px, 52px 11px;
+  background-size: 91px 89px, 137px 131px, 173px 163px;
+}
+
+.gift::after {
+  width: 62vmax;
+  height: 62vmax;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 50%;
+  top: -41vmax;
+  right: -28vmax;
+}
+
+.gift[data-tone="blush"] {
+  --page-pink: #f8b6d0;
+}
+
+.gift[data-tone="peach"] {
+  --page-pink: #f7b9c5;
+}
+
+.gift[data-tone="lilac"] {
+  --page-pink: #eab9d8;
+}
+
+.gift[data-tone="berry"] {
+  --page-pink: #ec9fc2;
+}
+
+.gift[data-tone="white"] {
+  --page-pink: #ffffff;
+  --ink: #000000;
+}
+
+.gift[data-tone="white"]::before,
+.gift[data-tone="white"]::after {
+  display: none;
+}
+
+.scene {
+  display: grid;
+  width: min(100%, 620px);
+  place-items: center;
+  animation: arrive 420ms cubic-bezier(0.22, 0.75, 0.24, 1) both;
+}
+
+.scene.is-leaving {
+  animation: leave 180ms ease-in both;
+}
+
+.content {
+  display: grid;
+  width: 100%;
+  justify-items: center;
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0 0 9px;
+  color: rgba(62, 22, 48, 0.7);
+  font-size: 0.69rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.title,
+.message {
+  max-width: 580px;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.title {
+  font-family: "Marck Script", "Comic Sans MS", cursive;
+  font-size: clamp(2.55rem, 7vw, 5.25rem);
+  font-weight: 400;
+  line-height: 0.98;
+}
+
+.message {
+  font-size: clamp(1.12rem, 2.5vw, 1.48rem);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.photo-frame {
+  display: grid;
+  width: min(78vw, 302px);
+  aspect-ratio: 1;
+  margin: 24px 0;
+  place-items: center;
+  overflow: hidden;
+  border: 8px solid rgba(255, 255, 255, 0.95);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.36);
+  box-shadow: var(--shadow);
+  transform: rotate(-1.5deg);
+}
+
+.photo-frame:nth-child(even) {
+  transform: rotate(1.5deg);
+}
+
+.photo-frame img {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-placeholder {
+  position: relative;
+  grid-area: 1 / 1;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+}
+
+.choices {
+  display: grid;
+  width: min(100%, 420px);
+  gap: 11px;
+  margin-top: 5px;
+}
+
+.choice,
+.press-button,
+.back-button {
+  border: 0;
+  cursor: pointer;
+}
+
+.choice {
+  min-height: 57px;
+  padding: 12px 23px;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 800;
+  box-shadow: 0 7px 0 rgba(163, 54, 103, 0.18);
+  transition: transform 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+}
+
+.choice:hover {
+  background: #ffffff;
+  box-shadow: 0 9px 0 rgba(163, 54, 103, 0.22);
+  transform: translateY(-2px);
+}
+
+.choice:active {
+  box-shadow: 0 3px 0 rgba(163, 54, 103, 0.22);
+  transform: translateY(3px);
+}
+
+.press-button {
+  margin-top: 19px;
+  padding: 3px 10px;
+  background: transparent;
+  color: var(--red);
+  font-size: clamp(2.3rem, 7vw, 4.4rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-shadow: 0 3px 0 rgba(255, 255, 255, 0.52);
+  transition: transform 160ms ease, color 160ms ease;
+}
+
+.press-button:hover {
+  color: #bf1127;
+  transform: scale(1.05) rotate(-2deg);
+}
+
+.back-button {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.68);
+  color: rgba(62, 22, 48, 0.76);
+  font-size: 1.35rem;
+  line-height: 1;
+  box-shadow: 0 4px 18px rgba(105, 31, 67, 0.12);
+}
+
+.back-button:hover {
+  background: #ffffff;
+}
+
+.end-note {
+  max-width: 565px;
+  color: #65193e;
+  font-family: "Marck Script", "Comic Sans MS", cursive;
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1.07;
+}
+
+.gift[data-tone="white"] .message {
+  max-width: 520px;
+  color: #000000;
+  font-size: clamp(1.9rem, 6vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 0.95;
+}
+
+.gift[data-tone="white"] .photo-frame {
+  border-color: #000000;
+  background: #f1f1f1;
+  box-shadow: 8px 8px 0 #000000;
+}
+
+.gift[data-tone="white"] .photo-placeholder {
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.gift[data-tone="white"] .press-button {
+  text-shadow: none;
+}
+
+button:focus-visible {
+  outline: 3px solid #4b0c29;
+  outline-offset: 4px;
+}
+
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes leave {
+  to {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.98);
+  }
+}
+
+@media (max-width: 480px) {
+  .gift {
+    padding: 58px 17px 28px;
+  }
+
+  .photo-frame {
+    margin: 20px 0;
+    border-width: 6px;
+  }
+
+  .choice {
+    min-height: 54px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
